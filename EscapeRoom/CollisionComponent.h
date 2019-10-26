@@ -14,6 +14,8 @@ namespace EscapeRoom
 		std::set<AABBCollisionComponent*> collided_objects;
 
 		static void UpdatePosition(AABBCollisionComponent* lhs_, AABBCollisionComponent* rhs_);
+
+		MathVector last_velocity;
 		
 	public:
 		Signal<void, GameObject*> on_collision_call_backs;

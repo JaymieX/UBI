@@ -98,6 +98,7 @@ namespace EscapeRoom
 		MathMatrix4x4 transform;
 
 		MathVector velocity;
+		
 		bool affected_by_collision = false;
 
 		std::string tag {"default" };

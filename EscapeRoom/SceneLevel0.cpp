@@ -11,7 +11,7 @@
 void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 {
 	debug_collided = true;
-	player_controller->SetVelocity(MathVector());
+	//player_controller->SetVelocity(MathVector());
 	player_controller->freeze_movement = true;
 
 	//player_controller->GetOwner()->velocity = 0.f;

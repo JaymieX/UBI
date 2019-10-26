@@ -16,32 +16,22 @@ void EscapeRoom::PlayerControlComponent::UpdateComponent()
 	
 	if (App::GetController().GetLeftThumbStickX() > 0.5f)
 	{
-		velocity.x = displacement;
-		velocity.y = 0;
-
-		last_velocity = velocity;
+		owner->velocity.x = displacement;
+		owner->velocity.y = 0;
 	}
 	else if (App::GetController().GetLeftThumbStickX() < -0.5f)
 	{
-		velocity.x = -displacement;
-		velocity.y = 0;
-
-		last_velocity = velocity;
+		owner->velocity.x = -displacement;
+		owner->velocity.y = 0;
 	}
 	else if(App::GetController().GetLeftThumbStickY() > 0.5f)
 	{
-		velocity.x = 0;
-		velocity.y = -displacement;
-
-		last_velocity = velocity;
+		owner->velocity.x = 0;
+		owner->velocity.y = -displacement;
 	}
 	else if (App::GetController().GetLeftThumbStickY() < -0.5f)
 	{
-		velocity.x = 0;
-		velocity.y = displacement;
-
-		last_velocity = velocity;
+		owner->velocity.x = 0;
+		owner->velocity.y = displacement;
 	}
-	
-	owner->velocity = velocity;
 }
