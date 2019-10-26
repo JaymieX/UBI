@@ -1,0 +1,11 @@
+﻿  stdafx.cpp
+  AABB.cpp
+  Door.cpp
+  GameTest.cpp
+E:\MyProgram\C++\UBI\GameTest\Door.cpp(4,10): fatal error C1083: Cannot open include file: 'app.h': No such file or directory
+  LaserWall.cpp
+E:\MyProgram\C++\UBI\GameTest\GameTest.cpp(9,10): fatal error C1083: Cannot open include file: 'app.h': No such file or directory
+  MainCharacter.cpp
+E:\MyProgram\C++\UBI\GameTest\LaserWall.cpp(3,10): fatal error C1083: Cannot open include file: 'app.h': No such file or directory
+  Generating Code...
+E:\MyProgram\C++\UBI\GameTest\MainCharacter.cpp(4,10): fatal error C1083: Cannot open include file: 'app.h': No such file or directory

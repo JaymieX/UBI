@@ -1,0 +1,1 @@
+Only 32 bits Bmp are supported

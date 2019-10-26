@@ -1,0 +1,14 @@
+﻿  app.cpp
+  DirectSound.cpp
+  linking with Microsoft's DirectSound library ...
+  main.cpp
+E:\MyProgram\C++\UBI\Framework\main.cpp(82,1): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  SimpleController.cpp
+  SimpleSound.cpp
+  SimpleSprite.cpp
+  stdafx.cpp
+  TextureLoader.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(1774): message : see declaration of 'sprintf'
+E:\MyProgram\C++\UBI\Framework\TextureLoader.cpp(50,1): error C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Generating Code...
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.17763.0\ucrt\stdio.h(208): message : see declaration of 'fopen'

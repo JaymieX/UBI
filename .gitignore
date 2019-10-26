@@ -1,0 +1,12 @@
+*.suo
+*.sdf
+*.opensdf
+/ipch
+/Debug
+/Release
+/Framework/x64
+/GameTest/x64
+/x64/
+/.vs
+desktop.ini
+*.user
