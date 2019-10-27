@@ -72,6 +72,9 @@
     <ClCompile Include="QuadTreeNode.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -126,6 +129,9 @@
       <Filter>src\core\component</Filter>
     </ClInclude>
     <ClInclude Include="QuadTreeNode.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
       <Filter>src\core</Filter>
     </ClInclude>
   </ItemGroup>

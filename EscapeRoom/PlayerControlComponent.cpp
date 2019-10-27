@@ -5,7 +5,7 @@
 
 void EscapeRoom::PlayerControlComponent::CollisionEnterCallBack(GameObject* object_)
 {
-	if (!object_->GetComponent<AABBCollisionComponent>()->trigger)
+	if (!object_->GetComponent<AABBCollisionComponent>()->GetTrigger())
 	{
 		velocity = 0.f;
 	}

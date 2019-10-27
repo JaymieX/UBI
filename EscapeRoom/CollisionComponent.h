@@ -1,38 +1,79 @@
 ﻿#pragma once
+
 #include "IComponent.h"
+#include "PathControlComponent.h"
 
 namespace EscapeRoom
 {
 	struct Rect;
 
-	class AABBCollisionComponent : public IComponent
+	class ICollisionComponent : public IComponent
 	{
-	private:
-		Rect col_zone;
-		Rect actual_col_zone;
+	protected:
+		Points col_zone;
+		Points actual_col_zone;
 
-		std::set<AABBCollisionComponent*> collided_objects;
+		bool trigger = false;
 
-		static void UpdatePosition(AABBCollisionComponent* lhs_, AABBCollisionComponent* rhs_);
+		std::set<ICollisionComponent*> collided_objects;
 
 		MathVector last_velocity;
 		
 	public:
 		Signal<void, GameObject*> on_collision_call_backs;
 		Signal<void, GameObject*> on_collision_exit_call_backs;
+		
+		ICollisionComponent(GameObject* owner_, const Points& zone_) :
+			IComponent(owner_, GENERATE_COMPONENT_ID(ICollisionComponent)),
+			col_zone(zone_),
+			actual_col_zone(zone_)
+		{
+		}
 
-		bool trigger = false;
+		inline void SetTrigger(const bool value_)
+		{
+			trigger = value_;
+		}
 
-		Rect GetActualCollisionZone() const
+		inline void SetLastVelocity(const MathVector& value_)
+		{
+			last_velocity = value_;
+		}
+
+		inline Points GetActualCollisionZone() const
 		{
 			return actual_col_zone;
 		}
+
+		inline bool GetTrigger() const
+		{
+			return trigger;
+		}
+
+		inline MathVector GetLastVelocity() const
+		{
+			return last_velocity;
+		}
 		
+		virtual bool Collided(ICollisionComponent* other_) = 0;
+
+		void UpdateComponent() override;
+
+		void RenderComponent() override;
+	};
+
+	class AABBCollisionComponent : public ICollisionComponent
+	{
+	private:
+		static void UpdatePosition(AABBCollisionComponent* lhs_, AABBCollisionComponent* rhs_);
+
+		AABBCollisionComponent(GameObject* owner_, Points& col_zone_) :
+			ICollisionComponent(owner_, col_zone_)
+		{
+		}
+	public:
 		AABBCollisionComponent(GameObject* owner_, Rect& col_zone_);
 
-		bool Collided(AABBCollisionComponent* other_);
-		
-		void UpdateComponent() override;
-		void RenderComponent() override;
+		bool Collided(ICollisionComponent* other_) override;
 	};
 }

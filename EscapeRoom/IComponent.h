@@ -3,6 +3,8 @@
 #include "GameObject.h"
 #include "GUID.h"
 
+#define GENERATE_COMPONENT_ID(type) GameTypeGUID::GetGUID<type>()
+
 namespace EscapeRoom
 {
 	class IComponent

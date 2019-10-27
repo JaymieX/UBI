@@ -4,6 +4,25 @@
 
 #define DEBUG_COLOR 0.18f, 0.69f, 0.26f
 
+void EscapeRoom::ICollisionComponent::UpdateComponent()
+{
+	// Apply transform
+	for (size_t i = 0; i < col_zone.size(); i++)
+	{
+		actual_col_zone.at(i) = owner->transform * col_zone.at(i);
+	}
+}
+
+void EscapeRoom::ICollisionComponent::RenderComponent()
+{
+	LinePack lines = LinePackFactory::MakePolygon(actual_col_zone);
+
+	for (auto& line : lines)
+	{
+		App::DrawLine(line.start.x, line.start.y, line.end.x, line.end.y, DEBUG_COLOR);
+	}
+}
+
 void EscapeRoom::AABBCollisionComponent::UpdatePosition(AABBCollisionComponent* lhs_, AABBCollisionComponent* rhs_)
 {
 	GameObject* lhs_owner = lhs_->GetOwner();
@@ -15,7 +34,7 @@ void EscapeRoom::AABBCollisionComponent::UpdatePosition(AABBCollisionComponent* 
 	
 	if (lhs_owner->affected_by_collision)
 	{
-		MathVector displace = (lhs_->last_velocity - rhs_->last_velocity).GetNormalized() * -net_speed;
+		const MathVector displace = (lhs_->last_velocity - rhs_->last_velocity).GetNormalized() * -net_speed;
 		
 		//lhs_owner->velocity = 0.f;
 		lhs_owner->velocity = displace;
@@ -23,23 +42,31 @@ void EscapeRoom::AABBCollisionComponent::UpdatePosition(AABBCollisionComponent* 
 }
 
 EscapeRoom::AABBCollisionComponent::AABBCollisionComponent(GameObject* owner_, Rect& col_zone_) :
-IComponent(owner_, GameTypeGUID::GetGUID<AABBCollisionComponent>()),
-col_zone(col_zone_),
-actual_col_zone(col_zone_)
+	ICollisionComponent(owner_, col_zone_.GetPoints())
 {
 }
 
-bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_)
+bool EscapeRoom::AABBCollisionComponent::Collided(ICollisionComponent* other_)
 {
-	const float this_col_x = actual_col_zone.p4.x;
-	const float this_col_y = actual_col_zone.p4.y;
-	const float other_col_x = other_->actual_col_zone.p4.x;
-	const float other_col_y = other_->actual_col_zone.p4.y;
+	if (dynamic_cast<AABBCollisionComponent*>(other_) == nullptr)
+	{
+		// Only support AABB collision in this challenge
+		// Other component type can be added later if needed
+		return false;
+	}
 
-	const float this_width = actual_col_zone.GetWidth();
-	const float this_height = actual_col_zone.GetHeight();
-	const float other_width = other_->actual_col_zone.GetWidth();
-	const float other_height = other_->actual_col_zone.GetHeight();
+	const Rect this_actual_col_zone_rect(actual_col_zone);
+	const Rect other_actual_col_zone_rect(other_->GetActualCollisionZone());
+	
+	const float this_col_x		= this_actual_col_zone_rect.p4.x;
+	const float this_col_y		= this_actual_col_zone_rect.p4.y;
+	const float other_col_x		= other_actual_col_zone_rect.p4.x;
+	const float other_col_y		= other_actual_col_zone_rect.p4.y;
+
+	const float this_width		= this_actual_col_zone_rect.GetWidth();
+	const float this_height		= this_actual_col_zone_rect.GetHeight();
+	const float other_width		= other_actual_col_zone_rect.GetWidth();
+	const float other_height	= other_actual_col_zone_rect.GetHeight();
 	
 	if (
 		this_col_x < other_col_x + other_width &&
@@ -58,14 +85,15 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 			other_->on_collision_call_backs.EmitAll(std::move(this_owner));
 
 			last_velocity = owner->velocity;
-			other_->last_velocity = other_->GetOwner()->velocity;
+			other_->SetLastVelocity(other_->GetOwner()->velocity);
 		}
 		
 		// Stay
-		if (!(trigger || other_->trigger))
+		if (!(trigger || other_->GetTrigger()))
 		{
-			UpdatePosition(this, other_);
-			UpdatePosition(other_, this);
+			AABBCollisionComponent* other_aabb = dynamic_cast<AABBCollisionComponent*>(other_);
+			UpdatePosition(this, other_aabb);
+			UpdatePosition(other_aabb, this);
 		}
 		
 		return true;
@@ -81,7 +109,7 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 			other_->on_collision_exit_call_backs.EmitAll(std::move(this_owner));
 
 			last_velocity = 0.f;
-			other_->last_velocity = 0.f;
+			other_->SetLastVelocity(0.f);
 
 			owner->velocity = 0.f;
 			other_->GetOwner()->velocity = 0.f;
@@ -89,22 +117,4 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 	}
 	
 	return false;
-}
-
-void EscapeRoom::AABBCollisionComponent::UpdateComponent()
-{
-	actual_col_zone.p1 = owner->transform * col_zone.p1;
-	actual_col_zone.p2 = owner->transform * col_zone.p2;
-	actual_col_zone.p3 = owner->transform * col_zone.p3;
-	actual_col_zone.p4 = owner->transform * col_zone.p4;
-}
-
-void EscapeRoom::AABBCollisionComponent::RenderComponent()
-{
-	LinePack lines = LinePackFactory::MakeRect(col_zone);
-	
-	GameObject::DrawLine(owner->transform, lines.at(0), DEBUG_COLOR);
-	GameObject::DrawLine(owner->transform, lines.at(1), DEBUG_COLOR);
-	GameObject::DrawLine(owner->transform, lines.at(2), DEBUG_COLOR);
-	GameObject::DrawLine(owner->transform, lines.at(3), DEBUG_COLOR);
 }

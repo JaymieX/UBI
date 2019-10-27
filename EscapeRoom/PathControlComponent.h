@@ -4,8 +4,6 @@
 
 namespace EscapeRoom
 {
-	using Points = std::vector<MathVector>;
-	
 	class PathControlComponent : public IComponent
 	{
 	private:

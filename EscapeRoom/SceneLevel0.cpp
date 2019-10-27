@@ -10,7 +10,7 @@
 
 void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 {
-	if (other_->GetComponent<AABBCollisionComponent>()->trigger)
+	if (other_->GetComponent<AABBCollisionComponent>()->GetTrigger())
 	{
 		if (other_->tag == "killer")
 		{
@@ -55,7 +55,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 	killer_object1->tag = "killer";
 
 	AABBCollisionComponent* killer_col_1 = AddComponentToGameObject<AABBCollisionComponent>(killer_object1, box);
-	killer_col_1->trigger = true;
+	killer_col_1->SetTrigger(true);
 
 	GameObject* killer_object1_1 = AddGameObject(GetNextGameObjectID());
 	AddComponentToGameObject<ShapeComponent>(
@@ -105,7 +105,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakekillerObjectA(MathVector&& 
 		);
 
 	AABBCollisionComponent* killer_col_0 = AddComponentToGameObject<AABBCollisionComponent>(killer_object0, box);
-	killer_col_0->trigger = true;
+	killer_col_0->SetTrigger(true);
 
 	return killer_object0;
 }
