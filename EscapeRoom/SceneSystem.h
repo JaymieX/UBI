@@ -17,7 +17,7 @@ namespace EscapeRoom
 
 		Rect screen;
 
-		QuadTreeNode<10, 1> quad_tree;
+		QuadTreeNode<2, 3> quad_tree;
 		
 	protected:
 		GameObject* AddGameObject(std::string&& name_);
@@ -69,7 +69,7 @@ namespace EscapeRoom
 		
 	public:
 		IScene() :
-			screen(MathVector(500.f, 380.f), 950.f, 750.f),
+			screen(MathVector(500.f, 380.f), 1000.f, 800.f),
 			quad_tree(0, screen)
 		{
 		}

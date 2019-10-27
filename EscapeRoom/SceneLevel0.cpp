@@ -128,7 +128,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 		player_object,
 		".\\TestData\\red_ball.bmp"
 		);
-	player_controller = AddComponentToGameObject<PlayerControlComponent>(player_object, 0.2f);
+	player_controller = AddComponentToGameObject<PlayerControlComponent>(player_object, 0.16f);
 	AABBCollisionComponent* player_col = AddComponentToGameObject<AABBCollisionComponent>(
 		player_object,
 		player_collision_box);
@@ -143,24 +143,26 @@ void EscapeRoom::SceneLevel0::StartScene()
 		&SceneLevel0::PlayerCollidedExit
 	);
 
-	// Walls
-	MakeWallObject(MathVector(50.f, 390.f), 1.f, 700.f);
-	MakeWallObject(MathVector(960.f, 390.f), 1.f, 700.f);
-	MakeWallObject(MathVector(505.f, 740.f), 910.f, 1.f);
-	MakeWallObject(MathVector(505.f, 40.f), 910.f, 1.f);
-	
-	MakeWallObject(MathVector(205.f, 275.f), 1.f, 400.f);
-	MakeWallObject(MathVector(160.f, 175.f), 80.f, 1.f);
-	MakeWallObject(MathVector(80.f, 325.f), 80.f, 1.f);
-	MakeWallObject(MathVector(160.f, 445.f), 80.f, 1.f);
-	MakeWallObject(MathVector(501.f, 500.f), 600.f, 1.f);
-	MakeWallObject(MathVector(600.f, 550.f), 1.f, 100.f);
+#define THICKNESS 10.f
 
-	MakeWallObject(MathVector(630.f, 400.f), 650.f, 1.f);
-	MakeWallObject(MathVector(300.f, 300.f), 1.f, 260.f);
-	MakeWallObject(MathVector(425.f, 170.f), 250.f, 1.f);
-	MakeWallObject(MathVector(825.f, 170.f), 250.f, 1.f);
-	MakeWallObject(MathVector(700.f, 270.f), 1.f, 200.f);
+	// Walls
+	MakeWallObject(MathVector(50.f, 390.f), THICKNESS, 700.f);
+	MakeWallObject(MathVector(960.f, 390.f), THICKNESS, 700.f);
+	MakeWallObject(MathVector(505.f, 740.f), 910.f, THICKNESS);
+	MakeWallObject(MathVector(505.f, 40.f), 910.f, THICKNESS);
+	
+	MakeWallObject(MathVector(205.f, 275.f), THICKNESS, 400.f);
+	MakeWallObject(MathVector(160.f, 175.f), 80.f, THICKNESS);
+	MakeWallObject(MathVector(80.f, 325.f), 80.f, THICKNESS);
+	MakeWallObject(MathVector(160.f, 445.f), 80.f, THICKNESS);
+	MakeWallObject(MathVector(501.f, 500.f), 600.f, THICKNESS);
+	MakeWallObject(MathVector(600.f, 550.f), THICKNESS, 100.f);
+
+	MakeWallObject(MathVector(630.f, 400.f), 650.f, THICKNESS);
+	MakeWallObject(MathVector(300.f, 300.f), THICKNESS, 260.f);
+	MakeWallObject(MathVector(425.f, 170.f), 250.f, THICKNESS);
+	MakeWallObject(MathVector(825.f, 170.f), 250.f, THICKNESS);
+	MakeWallObject(MathVector(700.f, 270.f), THICKNESS, 200.f);
 	
 	// Moving platforms
 	// p1

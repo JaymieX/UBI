@@ -46,13 +46,30 @@ void EscapeRoom::IScene::UpdateScene()
 	std::vector<std::unique_ptr<IComponent>>* collision_list =
 		&components.at(GameTypeGUID::GetGUID<AABBCollisionComponent>());
 
-	for (size_t i = 0; i < collision_list->size(); i++)
+	/*for (size_t i = 0; i < collision_list->size(); i++)
 	{
 		AABBCollisionComponent* main_obj = dynamic_cast<AABBCollisionComponent*>(collision_list->at(i).get());
 
 		for (size_t j = i + 1; j < collision_list->size(); j++)
 		{
 			AABBCollisionComponent* other_obj = dynamic_cast<AABBCollisionComponent*>(collision_list->at(j).get());
+
+			main_obj->Collided(other_obj);
+		}
+	}*/
+
+	std::set<GameObject*> flag;
+	for (size_t i = 0; i < collision_list->size(); i++)
+	{
+		AABBCollisionComponent* main_obj = dynamic_cast<AABBCollisionComponent*>(collision_list->at(i).get());
+		auto objects_to_test = quad_tree.GetObjects(main_obj->GetOwner());
+		flag.emplace(main_obj->GetOwner());
+
+		for (size_t j = 0; j < objects_to_test.size(); j++)
+		{
+			AABBCollisionComponent* other_obj = objects_to_test.at(j)->GetComponent<AABBCollisionComponent>();
+			
+			if (flag.find(other_obj->GetOwner()) != flag.end()) continue;
 
 			main_obj->Collided(other_obj);
 		}
