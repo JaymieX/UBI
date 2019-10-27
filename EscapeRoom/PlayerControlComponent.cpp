@@ -5,7 +5,10 @@
 
 void EscapeRoom::PlayerControlComponent::CollisionEnterCallBack(GameObject* object_)
 {
-	velocity = 0.f;
+	if (!object_->GetComponent<AABBCollisionComponent>()->trigger)
+	{
+		velocity = 0.f;
+	}
 }
 
 EscapeRoom::PlayerControlComponent::PlayerControlComponent(GameObject* owner_, float speed_) :

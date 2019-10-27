@@ -16,16 +16,13 @@ enum GameState
 
 GameState GlobalState = RUNNING;
 
-EscapeRoom::SceneSystem* scene_system;
-
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
 //------------------------------------------------------------------------
 void Init()
 {
-	scene_system = new EscapeRoom::SceneSystem();
-	scene_system->AddScene<EscapeRoom::SceneLevel0>("scene-0");
-	scene_system->SwitchToScene("scene-0");
+	EscapeRoom::SceneSystem::GetInstance()->AddScene<EscapeRoom::SceneLevel0>("scene-0");
+	EscapeRoom::SceneSystem::GetInstance()->SwitchToScene("scene-0");
 }
 
 void StartEndGame()
@@ -40,7 +37,7 @@ void Update(float deltaTime)
 {
 	if (GlobalState == RUNNING)
 	{
-		scene_system->UpdateScene(deltaTime);
+		EscapeRoom::SceneSystem::GetInstance()->UpdateScene(deltaTime);
 	}
 }
 
@@ -50,7 +47,7 @@ void Update(float deltaTime)
 //------------------------------------------------------------------------
 void Render()
 {
-	scene_system->RenderScene();
+	EscapeRoom::SceneSystem::GetInstance()->RenderScene();
 }
 //------------------------------------------------------------------------
 // Add your shutdown code here. Called when the APP_QUIT_KEY is pressed.
@@ -58,5 +55,4 @@ void Render()
 //------------------------------------------------------------------------
 void Shutdown()
 {
-	delete scene_system;
 }

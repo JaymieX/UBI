@@ -1,19 +1,10 @@
-﻿  stdafx.cpp
-  CollisionComponent.cpp
-  EscapeRoomGame.cpp
-  GUID.cpp
-  GameObject.cpp
-  IComponent.cpp
-  MathMatrix.cpp
-  MathVector.cpp
-  PathControlComponent.cpp
-  PlayerControlComponent.cpp
-  SceneLevel0.cpp
-  SceneSystem.cpp
-  ShapeAnimatorComponent.cpp
-  ShapeComponent.cpp
-  Signal.cpp
-  SpriteComponent.cpp
-  Util.cpp
-  Generating Code...
+﻿  SceneLevel0.cpp
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(76,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(77,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(78,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(79,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(80,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(81,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(82,1): warning C4305: 'argument': truncation from 'double' to 'const float'
+E:\MyProgram\C++\UBI\EscapeRoom\GameObject.h(83,1): warning C4305: 'argument': truncation from 'double' to 'const float'
   EscapeRoom.vcxproj -> E:\MyProgram\C++\UBI\x64\Debug\EscapeRoom.exe

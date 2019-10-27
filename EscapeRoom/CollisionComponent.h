@@ -21,7 +21,7 @@ namespace EscapeRoom
 		Signal<void, GameObject*> on_collision_call_backs;
 		Signal<void, GameObject*> on_collision_exit_call_backs;
 
-		bool inverted = false;
+		bool trigger = false;
 		
 		AABBCollisionComponent(GameObject* owner_, Rect& col_zone_);
 

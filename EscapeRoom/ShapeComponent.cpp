@@ -14,8 +14,8 @@ void EscapeRoom::ShapeComponent::UpdateComponent()
 
 void EscapeRoom::ShapeComponent::RenderComponent()
 {
-	GameObject::DrawLine(owner->transform, lines.at(0), color.x, color.y, color.z);
-	GameObject::DrawLine(owner->transform, lines.at(1), color.x, color.y, color.z);
-	GameObject::DrawLine(owner->transform, lines.at(2), color.x, color.y, color.z);
-	GameObject::DrawLine(owner->transform, lines.at(3), color.x, color.y, color.z);
+	for (auto& line : lines)
+	{
+		GameObject::DrawLine(owner->transform, line, color.x, color.y, color.z);
+	}
 }

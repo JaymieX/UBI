@@ -65,7 +65,11 @@ namespace EscapeRoom
 	public:
 		IScene() = default;
 
-		virtual ~IScene() = default;
+		virtual ~IScene()
+		{
+			components.clear();
+			game_objects.clear();
+		}
 		
 		virtual void StartScene() {}
 
@@ -88,6 +92,13 @@ namespace EscapeRoom
 		}
 
 		virtual void EndScene() {}
+
+		inline std::string GetNextGameObjectID() const
+		{
+			std::string result = "game-object-";
+			result.append(std::to_string(game_objects.size()));
+			return result;
+		}
 	};
 	
 	class SceneSystem final
@@ -98,8 +109,21 @@ namespace EscapeRoom
 		IScene* current_scene = nullptr;
 
 		static float delta_time;
+
+		SceneSystem() = default;
 		
 	public:
+		~SceneSystem()
+		{
+			available_scenes.clear();
+		}
+
+		inline static SceneSystem* GetInstance()
+		{
+			static SceneSystem instance;
+			return &instance;
+		}
+		
 		inline static float GetDeltaTime()
 		{
 			return delta_time;

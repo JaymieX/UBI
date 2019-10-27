@@ -68,6 +68,22 @@ namespace EscapeRoom
 
 			return result;
 		}
+
+		inline static LinePack MakeStar4C()
+		{
+			LinePack result;
+
+			result.emplace_back(Line(MathVector(-0.5,0), MathVector(-0.18, -0.18)));
+			result.emplace_back(Line(MathVector(-0.18, -0.18), MathVector(0, -0.5)));
+			result.emplace_back(Line(MathVector(0, -0.5), MathVector(0.18, -0.18)));
+			result.emplace_back(Line(MathVector(0.18, -0.18), MathVector(0.5, 0)));
+			result.emplace_back(Line(MathVector(0.5, 0), MathVector(0.18, 0.18)));
+			result.emplace_back(Line(MathVector(0.18, 0.18), MathVector(0, 0.5)));
+			result.emplace_back(Line(MathVector(0, 0.5), MathVector(-0.18, 0.18)));
+			result.emplace_back(Line(MathVector(-0.18, 0.18), MathVector(-0.5, 0)));
+
+			return result;
+		}
 	};
 	
 	class GameObject
@@ -95,6 +111,7 @@ namespace EscapeRoom
 		MathMatrix4x4 translate_mat;
 		MathMatrix4x4 rotation_mat;
 		MathMatrix4x4 scale_mat;
+		
 		MathMatrix4x4 transform;
 
 		MathVector velocity;
@@ -115,6 +132,9 @@ namespace EscapeRoom
 		void UpdateGameObject();
 
 		void RenderGameObject();
+
+		MathMatrix4x4 GetParentHierarchicalTRMatrix();
+		MathMatrix4x4 GetParentHierarchicalSMatrix();
 
 		static void DrawLine(MathMatrix4x4& mat_, Line& line_, float r_, float g_, float b_);
 	};

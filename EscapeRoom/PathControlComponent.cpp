@@ -30,6 +30,10 @@ void EscapeRoom::PathControlComponent::UpdateComponent()
 			index = points.size() - 2;
 			strif *= -1;
 		}
+		else if (index == 0)
+		{
+			strif *= -1;
+		}
 
 		current_target = &points.at(index);
 	}

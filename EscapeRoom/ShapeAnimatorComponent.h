@@ -5,14 +5,11 @@ namespace EscapeRoom
 {
 	class ShapeAnimatorComponent : public IComponent
 	{
-		float min_trans, max_trans;
 		float speed;
-
-		float current_trans;
-		bool target_id;
+		float rad_counter;
 		
 	public:
-		ShapeAnimatorComponent(GameObject* owner_, float min_, float max_, float speed_);
+		ShapeAnimatorComponent(GameObject* owner_, float speed_);
 		void UpdateComponent() override;
 	};
 }

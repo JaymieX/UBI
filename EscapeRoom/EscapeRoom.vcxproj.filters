@@ -66,7 +66,9 @@
     <ClCompile Include="ShapeAnimatorComponent.cpp">
       <Filter>src\core\component</Filter>
     </ClCompile>
-    <ClCompile Include="PathControlComponent.cpp" />
+    <ClCompile Include="PathControlComponent.cpp">
+      <Filter>src\core\component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

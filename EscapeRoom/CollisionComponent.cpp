@@ -7,7 +7,6 @@
 void EscapeRoom::AABBCollisionComponent::UpdatePosition(AABBCollisionComponent* lhs_, AABBCollisionComponent* rhs_)
 {
 	GameObject* lhs_owner = lhs_->GetOwner();
-	GameObject* rhs_owner = rhs_->GetOwner();
 
 	const float net_speed =
 		lhs_->last_velocity.GetMag() + rhs_->last_velocity.GetMag();
@@ -63,8 +62,11 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 		}
 		
 		// Stay
-		UpdatePosition(this, other_);
-		UpdatePosition(other_, this);
+		if (!(trigger || other_->trigger))
+		{
+			UpdatePosition(this, other_);
+			UpdatePosition(other_, this);
+		}
 		
 		return true;
 	}

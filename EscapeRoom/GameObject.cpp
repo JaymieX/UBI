@@ -42,24 +42,8 @@ void EscapeRoom::GameObject::UpdateGameObject()
 	rotation_mat	= MathMatrix::Rotate(rotation, angle);
 	scale_mat		= MathMatrix::Scale(scale);
 
-	if (parent != nullptr)
-	{
-		//Parent_Pos * Parent_Rotation* My_Pos* My_Rotation* Parent_Scale* My_Scale
-		transform =
-			parent->translate_mat *
-			parent->rotation_mat *
-			translate_mat *
-			rotation_mat *
-			parent->scale_mat *
-			scale_mat;
-	}
-	else
-	{
-		transform =
-			translate_mat *
-			rotation_mat *
-			scale_mat;
-	}
+	// Parent_Rotation Parent_Pos * My_Pos * My_Rotation * Parent_Scale * My_Scale
+	transform = GetParentHierarchicalTRMatrix()* GetParentHierarchicalSMatrix();
 	
 	ServiceAllComponents([](IComponent* comp_) { comp_->UpdateComponent(); });
 }
@@ -67,6 +51,26 @@ void EscapeRoom::GameObject::UpdateGameObject()
 void EscapeRoom::GameObject::RenderGameObject()
 {
 	ServiceAllComponents([](IComponent* comp_) { comp_->RenderComponent(); });
+}
+
+EscapeRoom::MathMatrix4x4 EscapeRoom::GameObject::GetParentHierarchicalTRMatrix()
+{
+	if (parent != nullptr)
+	{
+		return parent->GetParentHierarchicalTRMatrix() * rotation_mat * translate_mat;
+	}
+
+	return translate_mat * rotation_mat;
+}
+
+EscapeRoom::MathMatrix4x4 EscapeRoom::GameObject::GetParentHierarchicalSMatrix()
+{
+	if (parent != nullptr)
+	{
+		return parent->GetParentHierarchicalSMatrix() * scale_mat;
+	}
+
+	return scale_mat;
 }
 
 void EscapeRoom::GameObject::DrawLine(MathMatrix4x4& mat_, Line& line_, float r_, float g_, float b_)

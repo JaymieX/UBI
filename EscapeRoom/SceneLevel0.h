@@ -20,9 +20,12 @@ namespace EscapeRoom
 		void PlayerCollidedEnter(GameObject* other_);
 		void PlayerCollidedExit(GameObject* other_);
 
-		float scale_x, scale_y;
+		MathVector player_start;
 
 		void MakeWallObject(MathVector&& position_, const float width_, const float height_);
+
+		GameObject* MakeKillerObjectB(MathVector&& position_);
+		GameObject* MakekillerObjectA(MathVector&& position_);
 		
 	public:
 		void StartScene() override;
