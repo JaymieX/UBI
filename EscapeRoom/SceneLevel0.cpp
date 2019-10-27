@@ -12,7 +12,7 @@ void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 {
 	debug_collided = true;
 	//player_controller->SetVelocity(MathVector());
-	player_controller->freeze_movement = true;
+	//player_controller->freeze_movement = true;
 
 	//player_controller->GetOwner()->velocity = 0.f;
 	//player_controller->GetOwner()->position -= player_controller->GetLastVelocity();
@@ -97,7 +97,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 	Points points;
 	points.emplace_back(MathVector(700.f, 650.f));
 	points.emplace_back(MathVector(240.f, 650.f));
-	AddComponentToGameObject<PathControlComponent>(platform_object0, std::move(points), 0.1f);
+	AddComponentToGameObject<PathControlComponent>(platform_object0, std::move(points), 0.05f);
 	
 	AddComponentToGameObject<AABBCollisionComponent>(platform_object0, box);
 	

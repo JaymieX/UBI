@@ -72,6 +72,17 @@ namespace EscapeRoom
 		}
 	};
 
+	inline MathVector operator*(const MathVector& lhs_, const float rhs_)
+	{
+		MathVector result;
+
+		result.x = lhs_.x * rhs_;
+		result.y = lhs_.y * rhs_;
+		result.z = lhs_.z * rhs_;
+
+		return result;
+	}
+
 	inline MathVector operator*(const MathVector& lhs_, const MathVector& rhs_)
 	{
 		MathVector result;

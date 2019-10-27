@@ -10,22 +10,16 @@ void EscapeRoom::AABBCollisionComponent::UpdatePosition(AABBCollisionComponent* 
 	GameObject* rhs_owner = rhs_->GetOwner();
 
 	const float net_speed =
-		lhs_->last_velocity.GetMag() + rhs_->last_velocity.GetMag() * SceneSystem::GetDeltaTime();
+		lhs_->last_velocity.GetMag() + rhs_->last_velocity.GetMag();
+
+	if (net_speed == 0.f) return;
 	
 	if (lhs_owner->affected_by_collision)
 	{
-		lhs_owner->velocity = 0.f;
-		lhs_owner->position +=
-			net_speed *
-			(lhs_owner->position - rhs_owner->position).GetNormalized();
-	}
-
-	if (rhs_owner->affected_by_collision)
-	{
-		rhs_owner->velocity = 0.f;
-		rhs_owner->position +=
-			net_speed *
-			(rhs_owner->position - lhs_owner->position).GetNormalized();
+		MathVector displace = (lhs_->last_velocity - rhs_->last_velocity).GetNormalized() * -net_speed;
+		
+		//lhs_owner->velocity = 0.f;
+		lhs_owner->velocity = displace;
 	}
 }
 
@@ -70,6 +64,7 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 		
 		// Stay
 		UpdatePosition(this, other_);
+		UpdatePosition(other_, this);
 		
 		return true;
 	}
@@ -85,6 +80,9 @@ bool EscapeRoom::AABBCollisionComponent::Collided(AABBCollisionComponent* other_
 
 			last_velocity = 0.f;
 			other_->last_velocity = 0.f;
+
+			owner->velocity = 0.f;
+			other_->GetOwner()->velocity = 0.f;
 		}
 	}
 	
