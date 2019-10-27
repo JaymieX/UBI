@@ -19,30 +19,46 @@ speed(speed_)
 
 void EscapeRoom::PlayerControlComponent::UpdateComponent()
 {
-	if (freeze_movement) return;
-
-	const float displacement = speed;
-	if (owner->velocity.GetMag() <= 0.0f)
+	// Delay
+	if (current_delay > 0.f)
+		current_delay -= SceneSystem::GetDeltaTime();
+	else
 	{
-		if (App::GetController().GetLeftThumbStickX() > 0.5f)
+		current_delay = 0.f;
+
+		if (freeze_movement) return;
+
+		const float displacement = speed;
+		if (owner->velocity.GetMag() <= 0.0f)
 		{
-			velocity.x = displacement;
-			velocity.y = 0;
-		}
-		else if (App::GetController().GetLeftThumbStickX() < -0.5f)
-		{
-			velocity.x = -displacement;
-			velocity.y = 0;
-		}
-		else if (App::GetController().GetLeftThumbStickY() > 0.5f)
-		{
-			velocity.x = 0;
-			velocity.y = -displacement;
-		}
-		else if (App::GetController().GetLeftThumbStickY() < -0.5f)
-		{
-			velocity.x = 0;
-			velocity.y = displacement;
+			if (App::GetController().GetLeftThumbStickX() > 0.5f)
+			{
+				velocity.x = displacement;
+				velocity.y = 0;
+
+				current_delay = delay;
+			}
+			else if (App::GetController().GetLeftThumbStickX() < -0.5f)
+			{
+				velocity.x = -displacement;
+				velocity.y = 0;
+
+				current_delay = delay;
+			}
+			else if (App::GetController().GetLeftThumbStickY() > 0.5f)
+			{
+				velocity.x = 0;
+				velocity.y = -displacement;
+
+				current_delay = delay;
+			}
+			else if (App::GetController().GetLeftThumbStickY() < -0.5f)
+			{
+				velocity.x = 0;
+				velocity.y = displacement;
+
+				current_delay = delay;
+			}
 		}
 	}
 

@@ -44,7 +44,7 @@ EscapeRoom::GameObject* EscapeRoom::EscapeRoomLevelScene::MakeKillerObjectB(Math
 	AddComponentToGameObject<ShapeComponent>(
 		killer_object1_1,
 		LinePackFactory::MakeStar4C(),
-		MathVector(.6f, .6f, .6f)
+		MathVector(0.87f, 0.09f, 0.11f)
 		);
 
 	AddComponentToGameObject<ShapeAnimatorComponent>(
@@ -60,7 +60,7 @@ EscapeRoom::GameObject* EscapeRoom::EscapeRoomLevelScene::MakeKillerObjectB(Math
 	AddComponentToGameObject<ShapeComponent>(
 		killer_object1_1_1,
 		LinePackFactory::MakeStar4C(),
-		MathVector(.6f, .6f, .6f)
+		MathVector(0.87f, 0.09f, 0.11f)
 		);
 
 	AddComponentToGameObject<ShapeAnimatorComponent>(
@@ -82,7 +82,7 @@ EscapeRoom::GameObject* EscapeRoom::EscapeRoomLevelScene::MakeKillerObjectA(Math
 	AddComponentToGameObject<ShapeComponent>(
 		killer_object0,
 		LinePackFactory::MakeStar4C(),
-		MathVector(.6f, .6f, .6f)
+		MathVector(0.87f, 0.09f, 0.11f)
 		);
 
 	AABBCollisionComponent* killer_col_0 =
@@ -110,6 +110,61 @@ void EscapeRoom::EscapeRoomLevelScene::MakePlatformObject(MathVector&& start_, M
 	AddComponentToGameObject<PathControlComponent>(platform_object0, std::move(points), 0.05f);
 
 	AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(platform_object0, base_box);
+}
+
+void EscapeRoom::EscapeRoomLevelScene::MakeExitObject(MathVector&& position_)
+{
+	GameObject* exit_object = AddGameObject(GetNextGameObjectID());
+	exit_object->SetPosition(position_);
+	exit_object->SetScale(MathVector(120.f, 120.f));
+	exit_object->tag = "exit";
+
+	AABBCollisionComponent* exit_object_col =
+		AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(exit_object, base_box);
+	exit_object_col->SetTrigger(true);
+
+	GameObject* exit_object_1 = AddGameObject(GetNextGameObjectID());
+	AddComponentToGameObject<ShapeComponent>(
+		exit_object_1,
+		LinePackFactory::MakeStar4C(),
+		MathVector(0.14f, 0.5f, 0.97f)
+		);
+
+	AddComponentToGameObject<ShapeAnimatorComponent>(
+		exit_object_1, 0.001f
+		);
+
+	exit_object->AddChildGameObject(exit_object_1);
+
+	GameObject* exit_object_2 = AddGameObject(GetNextGameObjectID());
+	exit_object_2->SetScale(MathVector(1.1f, 1.1f));
+
+	AddComponentToGameObject<ShapeComponent>(
+		exit_object_2,
+		LinePackFactory::MakeStar4C(),
+		MathVector(0.3f, 0.14f, 0.97f)
+		);
+
+	AddComponentToGameObject<ShapeAnimatorComponent>(
+		exit_object_2, -0.003f
+		);
+
+	exit_object->AddChildGameObject(exit_object_2);
+
+	GameObject* exit_object_3 = AddGameObject(GetNextGameObjectID());
+	exit_object_3->SetScale(MathVector(.4f, .4f));
+
+	AddComponentToGameObject<ShapeComponent>(
+		exit_object_3,
+		LinePackFactory::MakeStar4C(),
+		MathVector(0.47f, 0.76f, 0.98f)
+		);
+
+	AddComponentToGameObject<ShapeAnimatorComponent>(
+		exit_object_3, -0.003f
+		);
+
+	exit_object->AddChildGameObject(exit_object_3);
 }
 
 void EscapeRoom::EscapeRoomLevelScene::MakePlayer(const MathVector& position_)

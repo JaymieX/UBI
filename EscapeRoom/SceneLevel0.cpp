@@ -19,8 +19,8 @@ void EscapeRoom::SceneLevel0::StartScene()
 	
 	MakeWallObject(MathVector(205.f, 275.f), WALL_THICKNESS, 400.f);
 	MakeWallObject(MathVector(160.f, 175.f), 80.f, WALL_THICKNESS);
-	MakeWallObject(MathVector(80.f, 325.f), 80.f, WALL_THICKNESS);
-	MakeWallObject(MathVector(160.f, 445.f), 80.f, WALL_THICKNESS);
+	MakeWallObject(MathVector(80.f, 300.f), 80.f, WALL_THICKNESS);
+	MakeWallObject(MathVector(175.f, 465.f), 85.f, WALL_THICKNESS);
 	MakeWallObject(MathVector(501.f, 500.f), 600.f, WALL_THICKNESS);
 	MakeWallObject(MathVector(600.f, 550.f), WALL_THICKNESS, 100.f);
 
@@ -63,4 +63,13 @@ void EscapeRoom::SceneLevel0::StartScene()
 	points3.emplace_back(MathVector(250.f, 120.f));
 	points3.emplace_back(MathVector(800.f, 120.f));
 	AddComponentToGameObject<PathControlComponent>(killer_object2, std::move(points3), 0.1f);
+
+	// K3
+	MakeKillerObjectB(MathVector(480.f, 340.f));
+
+	// K4
+	MakeKillerObjectA(MathVector(890.f, 100.f));
+
+	// Exit
+	MakeExitObject(MathVector(380.f, 240.f));
 }

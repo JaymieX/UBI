@@ -8,6 +8,8 @@ namespace EscapeRoom
 	{
 	private:
 		float speed;
+		float delay = 500.f;
+		float current_delay = 0.f;
 
 		void CollisionEnterCallBack(GameObject* object_);
 		

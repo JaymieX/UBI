@@ -31,6 +31,8 @@ namespace EscapeRoom
 
 		void MakePlatformObject(MathVector&& start_, MathVector&& end_, MathVector&& scale_);
 
+		void MakeExitObject(MathVector&& position_);
+
 		void MakePlayer(const MathVector& position_);
 	};
 }
