@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "GUID.h"
 
 namespace EscapeRoom
 {
@@ -75,7 +76,7 @@ namespace EscapeRoom
 			auto ptr = std::make_unique<Delegate<Object, Return, Args...>>();
 			ptr->Register(member_object_, slot_);
 
-			slots.insert(std::make_pair(0, std::move(ptr)));
+			slots.insert(std::make_pair(GameTypeGUID::GetGUID<Object>(), std::move(ptr)));
 		}
 
 		inline void Disconnect(const unsigned int id_)

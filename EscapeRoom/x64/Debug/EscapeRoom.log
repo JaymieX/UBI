@@ -1,2 +1,19 @@
-﻿  CollisionComponent.cpp
+﻿  stdafx.cpp
+  CollisionComponent.cpp
+  EscapeRoomGame.cpp
+  GUID.cpp
+  GameObject.cpp
+  IComponent.cpp
+  MathMatrix.cpp
+  MathVector.cpp
+  PathControlComponent.cpp
+  PlayerControlComponent.cpp
+  SceneLevel0.cpp
+  SceneSystem.cpp
+  ShapeAnimatorComponent.cpp
+  ShapeComponent.cpp
+  Signal.cpp
+  SpriteComponent.cpp
+  Util.cpp
+  Generating Code...
   EscapeRoom.vcxproj -> E:\MyProgram\C++\UBI\x64\Debug\EscapeRoom.exe

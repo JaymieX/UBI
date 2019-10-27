@@ -11,7 +11,6 @@
 void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 {
 	debug_collided = true;
-	//player_controller->SetVelocity(MathVector());
 	//player_controller->freeze_movement = true;
 
 	//player_controller->GetOwner()->velocity = 0.f;
@@ -26,8 +25,11 @@ void EscapeRoom::SceneLevel0::PlayerCollidedExit(GameObject* other_)
 void EscapeRoom::SceneLevel0::MakeWallObject(MathVector&& position_, const float width_, const float height_)
 {
 	Rect box(MathVector(0.f, 0.f), 1.f, 1.f);
+
+	std::string name = "wall-object_";
+	name.append(std::to_string(wall_objects.size()));
 	
-	GameObject* wall = AddGameObject("wall-object_" + wall_objects.size());
+	GameObject* wall = AddGameObject(std::move(name));
 	wall->position = position_;
 	wall->scale = MathVector(width_, height_);
 
@@ -79,15 +81,16 @@ void EscapeRoom::SceneLevel0::StartScene()
 	MakeWallObject(MathVector(505.f, 740.f), 910.f, 0.f);
 	MakeWallObject(MathVector(505.f, 40.f), 910.f, 0.f);
 	
-	MakeWallObject(MathVector(200.f, 275.f), 0.f, 500.f);
+	MakeWallObject(MathVector(200.f, 275.f), 0.f, 400.f);
 	MakeWallObject(MathVector(160.f, 175.f), 80.f, 0.f);
 	MakeWallObject(MathVector(80.f, 325.f), 80.f, 0.f);
-	MakeWallObject(MathVector(160.f, 475.f), 80.f, 0.f);
+	MakeWallObject(MathVector(160.f, 445.f), 80.f, 0.f);
+	MakeWallObject(MathVector(501.f, 500.f), 600.f, 0.f);
 
 	// Moving platforms
 	GameObject* platform_object0 = AddGameObject("platform-object0");
-	platform_object0->position = MathVector(240.f, 650.f);
-	platform_object0->scale = MathVector(0.f, 100.f);
+	platform_object0->position = MathVector(-100.f, 670.f);
+	platform_object0->scale = MathVector(1000.f, 150.f);
 
 	AddComponentToGameObject<ShapeComponent>(
 		platform_object0,
@@ -95,8 +98,8 @@ void EscapeRoom::SceneLevel0::StartScene()
 		MathVector(.6f, .6f, .6f)
 	);
 	Points points;
-	points.emplace_back(MathVector(700.f, 650.f));
-	points.emplace_back(MathVector(240.f, 650.f));
+	points.emplace_back(MathVector(200.f, 670.f));
+	points.emplace_back(MathVector(-100.f, 670.f));
 	AddComponentToGameObject<PathControlComponent>(platform_object0, std::move(points), 0.05f);
 	
 	AddComponentToGameObject<AABBCollisionComponent>(platform_object0, box);
