@@ -65,7 +65,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 		);
 
 	AddComponentToGameObject<ShapeAnimatorComponent>(
-		killer_object1_1, 0.08f
+		killer_object1_1, 0.005f
 		);
 
 	killer_object1->AddChildGameObject(killer_object1_1);
@@ -81,7 +81,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 		);
 
 	AddComponentToGameObject<ShapeAnimatorComponent>(
-		killer_object1_1_1, 0.08f
+		killer_object1_1_1, 0.005f
 		);
 
 	killer_object1_1->AddChildGameObject(killer_object1_1_1);

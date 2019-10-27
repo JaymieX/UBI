@@ -21,7 +21,7 @@ void EscapeRoom::PlayerControlComponent::UpdateComponent()
 {
 	if (freeze_movement) return;
 
-	const float displacement = speed * SceneSystem::GetDeltaTime();
+	const float displacement = speed;
 	if (owner->velocity.GetMag() <= 0.0f)
 	{
 		if (App::GetController().GetLeftThumbStickX() > 0.5f)

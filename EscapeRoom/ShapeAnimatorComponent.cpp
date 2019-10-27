@@ -12,6 +12,6 @@ EscapeRoom::ShapeAnimatorComponent::ShapeAnimatorComponent(GameObject* owner_, f
 
 void EscapeRoom::ShapeAnimatorComponent::UpdateComponent()
 {
-	rad_counter += speed;
+	rad_counter += speed * SceneSystem::GetDeltaTime();
 	owner->SetAngle(rad_counter);
 }

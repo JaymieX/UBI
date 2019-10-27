@@ -2,6 +2,7 @@
 #include "GameObject.h"
 
 #include "IComponent.h"
+#include "SceneSystem.h"
 
 EscapeRoom::GameObject::GameObject(const std::string& name_, IScene* scene_) :
 	name(name_),
@@ -36,7 +37,7 @@ void EscapeRoom::GameObject::StartGameObject()
 
 void EscapeRoom::GameObject::UpdateGameObject()
 {
-	AppendPosition(velocity);
+	AppendPosition(velocity * SceneSystem::GetDeltaTime());
 
 	// Parent_Rotation Parent_Pos * My_Pos * My_Rotation * Parent_Scale * My_Scale
 	transform = GetParentHierarchicalTRMatrix() * GetParentHierarchicalSMatrix();
