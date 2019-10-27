@@ -22,6 +22,11 @@ namespace EscapeRoom
 		Signal<void, GameObject*> on_collision_exit_call_backs;
 
 		bool trigger = false;
+
+		Rect GetActualCollisionZone() const
+		{
+			return actual_col_zone;
+		}
 		
 		AABBCollisionComponent(GameObject* owner_, Rect& col_zone_);
 

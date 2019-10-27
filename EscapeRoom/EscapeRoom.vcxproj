@@ -148,6 +148,7 @@
     <ClCompile Include="MathVector.cpp" />
     <ClCompile Include="PathControlComponent.cpp" />
     <ClCompile Include="PlayerControlComponent.cpp" />
+    <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="SceneLevel0.cpp" />
     <ClCompile Include="SceneSystem.cpp" />
     <ClCompile Include="ShapeAnimatorComponent.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="MathVector.h" />
     <ClInclude Include="PathControlComponent.h" />
     <ClInclude Include="PlayerControlComponent.h" />
+    <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="SceneLevel0.h" />
     <ClInclude Include="SceneSystem.h" />
     <ClInclude Include="ShapeAnimatorComponent.h" />

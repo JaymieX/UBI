@@ -39,6 +39,15 @@ namespace EscapeRoom
 		{
 			return abs(p4.y - p1.y);
 		}
+
+		inline MathVector GetCentre() const
+		{
+			MathVector result;
+			result.x = p1.x + GetWidth() / 2.f;
+			result.y = p4.y + GetHeight() / 2.f;
+
+			return result;
+		}
 	};
 
 	struct Line

@@ -3,6 +3,7 @@
 #include "GameObject.h"
 #include "IComponent.h"
 #include "GUID.h"
+#include "QuadTreeNode.h"
 
 namespace EscapeRoom
 {
