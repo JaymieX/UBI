@@ -9,7 +9,13 @@ void EscapeRoom::EscapeRoomLevelScene::PlayerCollidedEnter(GameObject* other_)
 		{
 			player_object->SetPosition(player_start);
 			player_object->GetComponent<PlayerControlComponent>()->velocity = 0.f;
+
+			App::StartSound(".\\TestData\\Test.wav");
 		}
+	}
+	else
+	{
+		App::StartSound(".\\TestData\\boop.wav");
 	}
 }
 
