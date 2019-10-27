@@ -36,14 +36,10 @@ void EscapeRoom::GameObject::StartGameObject()
 
 void EscapeRoom::GameObject::UpdateGameObject()
 {
-	position += velocity;
-	
-	translate_mat	= MathMatrix::Translate(position);
-	rotation_mat	= MathMatrix::Rotate(rotation, angle);
-	scale_mat		= MathMatrix::Scale(scale);
+	AppendPosition(velocity);
 
 	// Parent_Rotation Parent_Pos * My_Pos * My_Rotation * Parent_Scale * My_Scale
-	transform = GetParentHierarchicalTRMatrix()* GetParentHierarchicalSMatrix();
+	transform = GetParentHierarchicalTRMatrix() * GetParentHierarchicalSMatrix();
 	
 	ServiceAllComponents([](IComponent* comp_) { comp_->UpdateComponent(); });
 }

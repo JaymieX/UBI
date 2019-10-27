@@ -9,8 +9,11 @@ EscapeRoom::SpriteComponent::SpriteComponent(GameObject* owner_, std::string&& p
 
 void EscapeRoom::SpriteComponent::RenderComponent()
 {
-	sprite->SetPosition(owner->position.x, owner->position.y);
-	sprite->SetScale(owner->scale.x);
+	const MathVector owner_pos		= owner->GetPosition();
+	const MathVector owner_scale	= owner->GetScale();
+	
+	sprite->SetPosition	(owner_pos.x, owner_pos.y);
+	sprite->SetScale	(owner_scale.x);
 	
 	sprite->Draw();
 }

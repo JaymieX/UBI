@@ -7,11 +7,11 @@ EscapeRoom::ShapeAnimatorComponent::ShapeAnimatorComponent(GameObject* owner_, f
 	speed(speed_),
 	rad_counter(0.f)
 {
-	owner->rotation = MathVector(0.f, 0.f, 1.f);
+	owner->SetRotation(MathVector(0.f, 0.f, 1.f));
 }
 
 void EscapeRoom::ShapeAnimatorComponent::UpdateComponent()
 {
 	rad_counter += speed;
-	owner->angle = rad_counter;
+	owner->SetAngle(rad_counter);
 }

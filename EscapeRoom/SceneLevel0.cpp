@@ -14,7 +14,7 @@ void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 	{
 		if (other_->tag == "killer")
 		{
-			player_object->position = player_start;
+			player_object->SetPosition(player_start);
 			player_object->GetComponent<PlayerControlComponent>()->velocity = 0.f;
 		}
 	}
@@ -32,8 +32,8 @@ void EscapeRoom::SceneLevel0::MakeWallObject(MathVector&& position_, const float
 	name.append(std::to_string(wall_objects.size()));
 	
 	GameObject* wall = AddGameObject(std::move(name));
-	wall->position = position_;
-	wall->scale = MathVector(width_, height_);
+	wall->SetPosition(position_);
+	wall->SetScale(MathVector(width_, height_));
 
 	AddComponentToGameObject<ShapeComponent>(
 		wall,
@@ -50,8 +50,8 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 	Rect box(MathVector(0.f, 0.f), 1.f, 1.f);
 	
 	GameObject* killer_object1 = AddGameObject(GetNextGameObjectID());
-	killer_object1->position = position_;
-	killer_object1->scale = MathVector(60.f, 60.f);
+	killer_object1->SetPosition(position_);
+	killer_object1->SetScale(MathVector(60.f, 60.f));
 	killer_object1->tag = "killer";
 
 	AABBCollisionComponent* killer_col_1 = AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(killer_object1, box);
@@ -71,8 +71,8 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 	killer_object1->AddChildGameObject(killer_object1_1);
 
 	GameObject* killer_object1_1_1 = AddGameObject(GetNextGameObjectID());
-	killer_object1_1_1->scale = MathVector(.5f, .5f);
-	killer_object1_1_1->position = MathVector(-50.f, 0.f);
+	killer_object1_1_1->SetScale(MathVector(.5f, .5f));
+	killer_object1_1_1->SetPosition(MathVector(-50.f, 0.f));
 
 	AddComponentToGameObject<ShapeComponent>(
 		killer_object1_1_1,
@@ -94,8 +94,8 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakekillerObjectA(MathVector&& 
 	Rect box(MathVector(0.f, 0.f), 1.f, 1.f);
 	
 	GameObject* killer_object0 = AddGameObject(GetNextGameObjectID());
-	killer_object0->position = position_;
-	killer_object0->scale = MathVector(100.f, 100.f);
+	killer_object0->SetPosition(position_);
+	killer_object0->SetScale(MathVector(100.f, 100.f));
 	killer_object0->tag = "killer";
 
 	AddComponentToGameObject<ShapeComponent>(
@@ -122,7 +122,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 	player_object = AddGameObject("player-object");
 	player_object->affected_by_collision = true;
 	player_start = MathVector(100.f, 100.f);
-	player_object->position = player_start;
+	player_object->SetPosition(player_start);
 	
 	AddComponentToGameObject<SpriteComponent>(
 		player_object,
@@ -167,8 +167,8 @@ void EscapeRoom::SceneLevel0::StartScene()
 	// Moving platforms
 	// p1
 	GameObject* platform_object0 = AddGameObject("platform-object0");
-	platform_object0->position = MathVector(-100.f, 670.f);
-	platform_object0->scale = MathVector(1000.f, 150.f);
+	platform_object0->SetPosition(MathVector(-100.f, 670.f));
+	platform_object0->SetScale(MathVector(1000.f, 150.f));
 
 	AddComponentToGameObject<ShapeComponent>(
 		platform_object0,
@@ -184,8 +184,8 @@ void EscapeRoom::SceneLevel0::StartScene()
 
 	// p2
 	GameObject* platform_object1 = AddGameObject("platform-object1");
-	platform_object1->position = MathVector(700.f, -100.f);
-	platform_object1->scale = MathVector(100.f, 150.f);
+	platform_object1->SetPosition(MathVector(700.f, -100.f));
+	platform_object1->SetScale( MathVector(100.f, 150.f));
 
 	AddComponentToGameObject<ShapeComponent>(
 		platform_object1,

@@ -14,9 +14,9 @@ EscapeRoom::PathControlComponent::PathControlComponent(GameObject* owner_, Point
 
 void EscapeRoom::PathControlComponent::UpdateComponent()
 {
-	if (MathVector::VecDistance(owner->position, *current_target) > 3.f)
+	if (MathVector::VecDistance(owner->GetPosition(), *current_target) > 3.f)
 	{
-		const MathVector direction = *current_target - owner->position;
+		const MathVector direction = *current_target - owner->GetPosition();
 		MathVector movement = direction.GetNormalized() * speed * SceneSystem::GetDeltaTime();
 
 		owner->velocity = movement;
