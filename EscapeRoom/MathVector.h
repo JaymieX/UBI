@@ -26,9 +26,9 @@ namespace EscapeRoom
 		inline static float VecDistance(const MathVector& lhs_, const MathVector& rhs_)
 		{
 			return sqrt(
-				pow(lhs_.x - rhs_.x, 2.f) +
-				pow(lhs_.y - rhs_.y, 2.f) +
-				pow(lhs_.z - rhs_.z, 2.f)
+				(lhs_.x - rhs_.x) * (lhs_.x - rhs_.x) +
+				(lhs_.y - rhs_.y) * (lhs_.y - rhs_.y) +
+				(lhs_.z - rhs_.z) * (lhs_.z - rhs_.z)
 			);
 		}
 
@@ -65,9 +65,9 @@ namespace EscapeRoom
 		inline float GetMag() const
 		{
 			return sqrt(
-				pow(x, 2.f) +
-				pow(y, 2.f) +
-				pow(z, 2.f)
+				x * x +
+				y * y +
+				z * z
 			);
 		}
 	};

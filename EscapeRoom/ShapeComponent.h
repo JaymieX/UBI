@@ -13,7 +13,6 @@ namespace EscapeRoom
 	public:
 		ShapeComponent(GameObject* owner_, LinePack&& lines_, MathVector&& color_);
 		
-		void UpdateComponent() override;
 		void RenderComponent() override;
 	};
 }

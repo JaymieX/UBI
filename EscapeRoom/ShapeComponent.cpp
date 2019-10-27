@@ -8,10 +8,6 @@ color(color_)
 {
 }
 
-void EscapeRoom::ShapeComponent::UpdateComponent()
-{
-}
-
 void EscapeRoom::ShapeComponent::RenderComponent()
 {
 	for (auto& line : lines)

@@ -11,7 +11,7 @@ namespace EscapeRoom
 		MathVector p3;
 		MathVector p4;
 
-		Rect(MathVector& p1_, MathVector& p2_, MathVector& p3_, MathVector& p4_) :
+		Rect(const MathVector& p1_, const MathVector& p2_, const MathVector& p3_, const MathVector& p4_) :
 			p1(p1_),
 			p2(p2_),
 			p3(p3_),
@@ -19,7 +19,7 @@ namespace EscapeRoom
 		{
 		}
 
-		Rect(MathVector&& centre_, const float width_, const float height_) :
+		Rect(const MathVector& centre_, const float width_, const float height_) :
 			p1(centre_.x - width_ * .5f, centre_.y + height_ * .5f),
 			p2(centre_.x + width_ * .5f, centre_.y + height_ * .5f),
 			p3(centre_.x + width_ * .5f, centre_.y - height_ * .5f),
