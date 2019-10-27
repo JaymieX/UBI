@@ -30,7 +30,7 @@ void EscapeRoom::EscapeRoomLevelScene::MakeWallObject(MathVector&& position_, co
 	AddComponentToGameObject<ShapeComponent>(
 		wall,
 		LinePackFactory::MakeRect(base_box),
-		MathVector(.6f, .6f, .6f)
+		MathVector(0.22f, 0.88f, 0.57f)
 		);
 	AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(wall, base_box);
 }
@@ -107,7 +107,7 @@ void EscapeRoom::EscapeRoomLevelScene::MakePlatformObject(MathVector&& start_, M
 	AddComponentToGameObject<ShapeComponent>(
 		platform_object0,
 		LinePackFactory::MakeRect(base_box),
-		MathVector(.6f, .6f, .6f)
+		MathVector(0.49f, 0.22f, 0.88f)
 		);
 
 	Points points;

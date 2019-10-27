@@ -1,11 +1,2 @@
-﻿  CollisionComponent.cpp
-  EscapeRoomGame.cpp
-  EscapeRoomLevelScene.cpp
-  GameObject.cpp
-  PathControlComponent.cpp
-  PlayerControlComponent.cpp
-  SceneLevel0.cpp
-  SceneSystem.cpp
-  ShapeAnimatorComponent.cpp
-  Generating Code...
+﻿  SceneLevel0.cpp
   EscapeRoom.vcxproj -> E:\MyProgram\C++\UBI\x64\Debug\EscapeRoom.exe

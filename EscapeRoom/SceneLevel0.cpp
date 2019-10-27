@@ -28,7 +28,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 	MakeWallObject(MathVector(300.f, 300.f), WALL_THICKNESS, 260.f);
 	MakeWallObject(MathVector(425.f, 170.f), 250.f, WALL_THICKNESS);
 	MakeWallObject(MathVector(825.f, 170.f), 250.f, WALL_THICKNESS);
-	MakeWallObject(MathVector(700.f, 270.f), WALL_THICKNESS, 200.f);
+	MakeWallObject(MathVector(700.f, 280.f), WALL_THICKNESS, 230.f);
 	
 	// Moving platforms
 	// p1
@@ -69,6 +69,9 @@ void EscapeRoom::SceneLevel0::StartScene()
 
 	// K4
 	MakeKillerObjectA(MathVector(890.f, 100.f));
+
+	// K5
+	MakeKillerObjectA(MathVector(760.f, 230.f));
 
 	// Exit
 	MakeExitObject(MathVector(380.f, 240.f));
