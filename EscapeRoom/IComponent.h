@@ -20,9 +20,14 @@ namespace EscapeRoom
 		{
 		}
 
-		GameObject* GetOwner() const
+		inline GameObject* GetOwner() const
 		{
 			return owner;
+		}
+
+		inline GameTypeGUID::GUIDType GetTypeID() const
+		{
+			return type_id;
 		}
 
 		virtual ~IComponent() = default;

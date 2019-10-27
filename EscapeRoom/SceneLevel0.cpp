@@ -10,7 +10,7 @@
 
 void EscapeRoom::SceneLevel0::PlayerCollidedEnter(GameObject* other_)
 {
-	if (other_->GetComponent<AABBCollisionComponent>()->GetTrigger())
+	if (other_->GetComponent<ICollisionComponent>()->GetTrigger())
 	{
 		if (other_->tag == "killer")
 		{
@@ -40,7 +40,7 @@ void EscapeRoom::SceneLevel0::MakeWallObject(MathVector&& position_, const float
 		LinePackFactory::MakeRect(box),
 		MathVector(.6f, .6f, .6f)
 		);
-	AddComponentToGameObject<AABBCollisionComponent>(wall, box);
+	AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(wall, box);
 
 	wall_objects.emplace_back(wall);
 }
@@ -54,7 +54,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakeKillerObjectB(MathVector&& 
 	killer_object1->scale = MathVector(60.f, 60.f);
 	killer_object1->tag = "killer";
 
-	AABBCollisionComponent* killer_col_1 = AddComponentToGameObject<AABBCollisionComponent>(killer_object1, box);
+	AABBCollisionComponent* killer_col_1 = AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(killer_object1, box);
 	killer_col_1->SetTrigger(true);
 
 	GameObject* killer_object1_1 = AddGameObject(GetNextGameObjectID());
@@ -104,7 +104,7 @@ EscapeRoom::GameObject* EscapeRoom::SceneLevel0::MakekillerObjectA(MathVector&& 
 		MathVector(.6f, .6f, .6f)
 		);
 
-	AABBCollisionComponent* killer_col_0 = AddComponentToGameObject<AABBCollisionComponent>(killer_object0, box);
+	AABBCollisionComponent* killer_col_0 = AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(killer_object0, box);
 	killer_col_0->SetTrigger(true);
 
 	return killer_object0;
@@ -129,7 +129,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 		".\\TestData\\red_ball.bmp"
 		);
 	player_controller = AddComponentToGameObject<PlayerControlComponent>(player_object, 0.16f);
-	AABBCollisionComponent* player_col = AddComponentToGameObject<AABBCollisionComponent>(
+	AABBCollisionComponent* player_col = AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(
 		player_object,
 		player_collision_box);
 	
@@ -180,7 +180,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 	points.emplace_back(MathVector(-100.f, 670.f));
 	AddComponentToGameObject<PathControlComponent>(platform_object0, std::move(points), 0.05f);
 	
-	AddComponentToGameObject<AABBCollisionComponent>(platform_object0, box);
+	AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(platform_object0, box);
 
 	// p2
 	GameObject* platform_object1 = AddGameObject("platform-object1");
@@ -197,7 +197,7 @@ void EscapeRoom::SceneLevel0::StartScene()
 	points2.emplace_back(MathVector(700.f, -100.f));
 	AddComponentToGameObject<PathControlComponent>(platform_object1, std::move(points2), 0.05f);
 
-	AddComponentToGameObject<AABBCollisionComponent>(platform_object1, box);
+	AddComponentToGameObjectEx<AABBCollisionComponent, ICollisionComponent>(platform_object1, box);
 
 	// Killer
 	// k1

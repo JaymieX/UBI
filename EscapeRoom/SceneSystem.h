@@ -24,8 +24,8 @@ namespace EscapeRoom
 
 		GameObject* GetGameObject(std::string&& name_);
 		
-		template <typename Comp, typename ... Args>
-		Comp* AddComponentToGameObject(GameObject* owner_, Args&&... args_)
+		template <typename Comp, typename IDType, typename ... Args>
+		Comp* AddComponentToGameObjectEx(GameObject* owner_, Args&&... args_)
 		{
 			// Static assert
 			static_assert(
@@ -33,22 +33,24 @@ namespace EscapeRoom
 				"Comp must publicly inherit from IComponent"
 				);
 
+			GameTypeGUID::GUIDType guid = GameTypeGUID::GetGUID<IDType>();
+
 			// Make sure pool exists
-			if (!Util::MapContains(components, GameTypeGUID::GetGUID<Comp>()))
+			if (!Util::MapContains(components, guid))
 			{
 				components.insert(
 					std::make_pair(
-						GameTypeGUID::GetGUID<Comp>(),
+						guid,
 						std::vector < std::unique_ptr<IComponent>>()
 					)
 				);
 			}
 
-			if (!Util::MapContains(owner_->components, GameTypeGUID::GetGUID<Comp>()))
+			if (!Util::MapContains(owner_->components, guid))
 			{
 				owner_->components.insert(
 					std::make_pair(
-						GameTypeGUID::GetGUID<Comp>(),
+						guid,
 						std::vector<IComponent*>()
 					)
 				);
@@ -57,14 +59,23 @@ namespace EscapeRoom
 			// Add
 			std::unique_ptr<Comp> u_ptr = std::make_unique<Comp>(owner_, std::forward<Args>(args_)...);
 			Comp* ptr = dynamic_cast<Comp*>(u_ptr.get());
-			components.at(GameTypeGUID::GetGUID<Comp>()).emplace_back(
+			components.at(guid).emplace_back(
 				std::move(u_ptr)
 			);
 
-			owner_->components.at(GameTypeGUID::GetGUID<Comp>()).emplace_back(ptr);
+			owner_->components.at(guid).emplace_back(ptr);
 
 			// Get
 			return ptr;
+		}
+
+		template <typename Comp, typename ... Args>
+		Comp* AddComponentToGameObject(GameObject* owner_, Args&&... args_)
+		{
+			return AddComponentToGameObjectEx<Comp, Comp>(
+				owner_,
+				std::forward<Args>(args_)...
+			);
 		}
 		
 	public:

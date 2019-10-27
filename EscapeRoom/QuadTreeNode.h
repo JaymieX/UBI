@@ -209,7 +209,7 @@ namespace EscapeRoom
 
 		inline void Insert(GameObject* object_)
 		{
-			AABBCollisionComponent* col = object_->GetComponent<AABBCollisionComponent>();
+			ICollisionComponent* col = object_->GetComponent<ICollisionComponent>();
 			if (col == nullptr) return;
 			
 			const Rect zone = col->GetActualCollisionZone();
@@ -243,7 +243,7 @@ namespace EscapeRoom
 				int i = 0;
 				while (i < game_objects_ptr.size())
 				{
-					int index = Fit(game_objects_ptr.at(i)->GetComponent<AABBCollisionComponent>()->GetActualCollisionZone());
+					int index = Fit(game_objects_ptr.at(i)->GetComponent<ICollisionComponent>()->GetActualCollisionZone());
 					if (index != -1) {
 						children_nodes[index]->Insert(game_objects_ptr.at(i));
 						game_objects_ptr.erase(game_objects_ptr.begin() + i);
@@ -258,7 +258,7 @@ namespace EscapeRoom
 
 		inline std::vector<GameObject*> GetObjects(std::vector<GameObject*>& obj_list_, GameObject* target_)
 		{
-			const Rect zone = target_->GetComponent<AABBCollisionComponent>()->GetActualCollisionZone();
+			const Rect zone(target_->GetComponent<ICollisionComponent>()->GetActualCollisionZone());
 			const int index = Fit(zone);
 
 			if (index != -1 && children_nodes[0] != nullptr)

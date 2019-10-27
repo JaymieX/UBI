@@ -5,7 +5,7 @@
 
 void EscapeRoom::PlayerControlComponent::CollisionEnterCallBack(GameObject* object_)
 {
-	if (!object_->GetComponent<AABBCollisionComponent>()->GetTrigger())
+	if (!object_->GetComponent<ICollisionComponent>()->GetTrigger())
 	{
 		velocity = 0.f;
 	}
@@ -51,7 +51,7 @@ void EscapeRoom::PlayerControlComponent::UpdateComponent()
 
 void EscapeRoom::PlayerControlComponent::StartComponent()
 {
-	AABBCollisionComponent* col = owner->GetComponent<AABBCollisionComponent>();
+	ICollisionComponent* col = owner->GetComponent<ICollisionComponent>();
 	if (col != nullptr)
 	{
 		col->on_collision_call_backs.Connect(
