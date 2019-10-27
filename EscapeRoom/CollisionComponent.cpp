@@ -15,11 +15,14 @@ void EscapeRoom::ICollisionComponent::UpdateComponent()
 
 void EscapeRoom::ICollisionComponent::RenderComponent()
 {
-	LinePack lines = LinePackFactory::MakePolygon(actual_col_zone);
-
-	for (auto& line : lines)
+	if (SceneSystem::GetInstance()->show_debug_info)
 	{
-		App::DrawLine(line.start.x, line.start.y, line.end.x, line.end.y, DEBUG_COLOR);
+		LinePack lines = LinePackFactory::MakePolygon(actual_col_zone);
+
+		for (auto& line : lines)
+		{
+			App::DrawLine(line.start.x, line.start.y, line.end.x, line.end.y, DEBUG_COLOR);
+		}
 	}
 }
 

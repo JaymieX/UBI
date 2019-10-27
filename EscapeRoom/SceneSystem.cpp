@@ -75,3 +75,16 @@ void EscapeRoom::IScene::UpdateScene()
 		}
 	}
 }
+
+void EscapeRoom::IScene::RenderScene()
+{
+	for (auto& object : game_objects)
+	{
+		object.second->RenderGameObject();
+	}
+
+	if (SceneSystem::GetInstance()->show_debug_info)
+	{
+		quad_tree.Draw();
+	}
+}

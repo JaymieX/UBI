@@ -103,15 +103,7 @@ namespace EscapeRoom
 
 		virtual void UpdateScene();
 
-		virtual void RenderScene()
-		{
-			for (auto& object : game_objects)
-			{
-				object.second->RenderGameObject();
-			}
-
-			quad_tree.Draw();
-		}
+		virtual void RenderScene();
 
 		virtual void EndScene() {}
 
@@ -135,6 +127,8 @@ namespace EscapeRoom
 		SceneSystem() = default;
 		
 	public:
+		bool show_debug_info = false;
+		
 		~SceneSystem()
 		{
 			available_scenes.clear();
@@ -198,9 +192,14 @@ namespace EscapeRoom
 			return false;
 		}
 
-		inline void UpdateScene(float delta_time_) const
+		inline void UpdateScene(float delta_time_)
 		{
 			delta_time = delta_time_;
+
+			if (App::GetController().CheckButton(XINPUT_GAMEPAD_BACK, true))
+			{
+				show_debug_info = !show_debug_info;
+			}
 			
 			if (current_scene != nullptr)
 			{
