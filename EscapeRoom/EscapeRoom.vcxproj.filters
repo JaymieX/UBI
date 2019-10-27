@@ -75,6 +75,9 @@
     <ClCompile Include="Geometry.cpp">
       <Filter>src\core</Filter>
     </ClCompile>
+    <ClCompile Include="EscapeRoomLevelScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="EscapeRoomLevelScene.h">
+      <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

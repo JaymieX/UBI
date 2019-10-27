@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="EscapeRoomGame.cpp" />
+    <ClCompile Include="EscapeRoomLevelScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="GUID.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionComponent.h" />
+    <ClInclude Include="EscapeRoomLevelScene.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="GUID.h" />

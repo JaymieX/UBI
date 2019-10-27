@@ -1,2 +1,5 @@
-﻿  SceneLevel0.cpp
+﻿  EscapeRoomGame.cpp
+  EscapeRoomLevelScene.cpp
+  SceneLevel0.cpp
+  Generating Code...
   EscapeRoom.vcxproj -> E:\MyProgram\C++\UBI\x64\Debug\EscapeRoom.exe
