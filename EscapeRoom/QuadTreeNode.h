@@ -13,11 +13,14 @@ namespace EscapeRoom
 	private:
 		using QuadTreeNodeType = QuadTreeNode<NodeMaxGameObjects, Depth>;
 
+		const int max_obj = NodeMaxGameObjects;
+		const int depth = Depth;
+
 		std::vector<GameObject*> game_objects_ptr;
 		size_t current_level;
 		Rect node_zone;
 
-		QuadTreeNodeType* children_nodes[QUAD_SIZE];
+		std::array<QuadTreeNodeType*, QUAD_SIZE> children_nodes;
 		
 	public:
 		QuadTreeNode(const size_t level_, const Rect& node_zone_) :
@@ -32,49 +35,94 @@ namespace EscapeRoom
 
 		~QuadTreeNode()
 		{
-			delete[] children_nodes;
+			Clear();
 		}
 
-		inline void Draw(QuadTreeNodeType* node_) const
+		inline void Clear()
+		{
+			game_objects_ptr.clear();
+
+			// Array is on stack and only object is on heap
+			// so I used delete instead of delete[]
+			if (children_nodes[0] != nullptr)
+			{
+				delete children_nodes[0];
+				delete children_nodes[1];
+				delete children_nodes[2];
+				delete children_nodes[3];
+
+				children_nodes[0] = nullptr;
+				children_nodes[1] = nullptr;
+				children_nodes[2] = nullptr;
+				children_nodes[3] = nullptr;
+			}
+		}
+
+		inline void Draw(QuadTreeNodeType* node_)
 		{
 			App::DrawLine(
-				node_zone.p1.x,
-				node_zone.p1.y,
-				node_zone.p4.x,
-				node_zone.p4.y,
+				node_->node_zone.p1.x,
+				node_->node_zone.p1.y,
+				node_->node_zone.p2.x,
+				node_->node_zone.p2.y,
 				0.54f,
 				0.06f,
 				0.8f
 			);
 
-			if (children_nodes[0] != nullptr)
+			App::DrawLine(
+				node_->node_zone.p2.x,
+				node_->node_zone.p2.y,
+				node_->node_zone.p3.x,
+				node_->node_zone.p3.y,
+				0.54f,
+				0.06f,
+				0.8f
+			);
+
+			App::DrawLine(
+				node_->node_zone.p3.x,
+				node_->node_zone.p3.y,
+				node_->node_zone.p4.x,
+				node_->node_zone.p4.y,
+				0.54f,
+				0.06f,
+				0.8f
+			);
+
+			App::DrawLine(
+				node_->node_zone.p4.x,
+				node_->node_zone.p4.y,
+				node_->node_zone.p1.x,
+				node_->node_zone.p1.y,
+				0.54f,
+				0.06f,
+				0.8f
+			);
+
+			if (node_->children_nodes[0] != nullptr)
 			{
-				Draw(children_nodes[0]);
-				Draw(children_nodes[1]);
-				Draw(children_nodes[2]);
-				Draw(children_nodes[3]);
+				Draw(node_->children_nodes[0]);
+				Draw(node_->children_nodes[1]);
+				Draw(node_->children_nodes[2]);
+				Draw(node_->children_nodes[3]);
 			}
 		}
 
-		inline void Draw() const
+		inline void Draw()
 		{
 			Draw(this);
-		}
-
-		inline void Clear()
-		{
-			delete[] children_nodes;
 		}
 
 		inline void Divide()
 		{
 			const MathVector centre = node_zone.GetCentre();
 			
-			const float new_width = centre.x;
-			const float new_height = centre.y;
+			const float new_width = node_zone.GetWidth() / 2.f;
+			const float new_height = node_zone.GetHeight() / 2.f;
 
-			const float new_x = centre.x / 2.f;
-			const float new_y = centre.y / 2.f;
+			const float new_x = new_width / 2.f;
+			const float new_y = new_height / 2.f;
 
 			// Top left
 			children_nodes[0] = new QuadTreeNodeType(
@@ -161,7 +209,10 @@ namespace EscapeRoom
 
 		inline void Insert(GameObject* object_)
 		{
-			const Rect zone = object_->GetComponent<AABBCollisionComponent>()->GetActualCollisionZone();
+			AABBCollisionComponent* col = object_->GetComponent<AABBCollisionComponent>();
+			if (col == nullptr) return;
+			
+			const Rect zone = col->GetActualCollisionZone();
 			
 			if (children_nodes[0] != nullptr)
 			{
@@ -179,9 +230,9 @@ namespace EscapeRoom
 			game_objects_ptr.emplace_back(object_);
 
 			// Dont exceed max level
-			if (current_level > Depth) return;
+			if (current_level > depth) return;
 
-			if (game_objects_ptr.size() > NodeMaxGameObjects)
+			if (game_objects_ptr.size() > max_obj)
 			{
 				// Dividing
 				if (children_nodes[0] == nullptr)
@@ -194,7 +245,8 @@ namespace EscapeRoom
 				{
 					int index = Fit(game_objects_ptr.at(i)->GetComponent<AABBCollisionComponent>()->GetActualCollisionZone());
 					if (index != -1) {
-						children_nodes[index]->Insert(game_objects_ptr.erase(game_objects_ptr.begin() + i));
+						children_nodes[index]->Insert(game_objects_ptr.at(i));
+						game_objects_ptr.erase(game_objects_ptr.begin() + i);
 					}
 					else
 					{

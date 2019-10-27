@@ -14,6 +14,10 @@ namespace EscapeRoom
 		
 		std::unordered_map<std::string, std::unique_ptr<GameObject>> game_objects;
 		std::unordered_map<GameTypeGUID::GUIDType, std::vector<std::unique_ptr<IComponent>>> components;
+
+		Rect screen;
+
+		QuadTreeNode<10, 1> quad_tree;
 		
 	protected:
 		GameObject* AddGameObject(std::string&& name_);
@@ -64,7 +68,11 @@ namespace EscapeRoom
 		}
 		
 	public:
-		IScene() = default;
+		IScene() :
+			screen(MathVector(500.f, 380.f), 950.f, 750.f),
+			quad_tree(0, screen)
+		{
+		}
 
 		virtual ~IScene()
 		{
@@ -90,6 +98,8 @@ namespace EscapeRoom
 			{
 				object.second->RenderGameObject();
 			}
+
+			quad_tree.Draw();
 		}
 
 		virtual void EndScene() {}

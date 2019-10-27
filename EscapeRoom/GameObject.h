@@ -37,7 +37,7 @@ namespace EscapeRoom
 
 		inline float GetHeight() const
 		{
-			return abs(p4.y - p1.y);
+			return abs(p1.y - p4.y);
 		}
 
 		inline MathVector GetCentre() const

@@ -35,9 +35,11 @@ EscapeRoom::GameObject* EscapeRoom::IScene::GetGameObject(std::string&& name_)
 
 void EscapeRoom::IScene::UpdateScene()
 {
+	quad_tree.Clear();
 	for (auto& object : game_objects)
 	{
 		object.second->UpdateGameObject();
+		quad_tree.Insert(object.second.get());
 	}
 
 	// Collision
