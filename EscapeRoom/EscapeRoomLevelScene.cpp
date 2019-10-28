@@ -12,6 +12,10 @@ void EscapeRoom::EscapeRoomLevelScene::PlayerCollidedEnter(GameObject* other_)
 
 			App::StartSound(".\\TestData\\Test.wav");
 		}
+		else if (other_->tag == "exit")
+		{
+			SceneSystem::GetInstance()->SwitchToScene("scene-win");
+		}
 	}
 	else
 	{

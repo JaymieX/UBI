@@ -76,3 +76,11 @@ void EscapeRoom::SceneLevel0::StartScene()
 	// Exit
 	MakeExitObject(MathVector(380.f, 240.f));
 }
+
+void EscapeRoom::SceneLevel0::ResumeScene()
+{
+	player_start = MathVector(100.f, 100.f);
+	
+	player_object->SetPosition(player_start);
+	player_object->velocity = 0.f;
+}

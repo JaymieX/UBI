@@ -78,6 +78,9 @@
     <ClCompile Include="EscapeRoomLevelScene.cpp">
       <Filter>src\scene</Filter>
     </ClCompile>
+    <ClCompile Include="WinScene.cpp">
+      <Filter>src\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -138,6 +141,9 @@
       <Filter>src\core</Filter>
     </ClInclude>
     <ClInclude Include="EscapeRoomLevelScene.h">
+      <Filter>src\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="WinScene.h">
       <Filter>src\scene</Filter>
     </ClInclude>
   </ItemGroup>

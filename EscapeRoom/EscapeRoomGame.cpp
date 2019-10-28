@@ -6,15 +6,7 @@
 
 #include "SceneSystem.h"
 #include "SceneLevel0.h"
-
-enum GameState
-{
-	RUNNING,
-	WIN,
-	LOST
-};
-
-GameState GlobalState = RUNNING;
+#include "WinScene.h"
 
 //------------------------------------------------------------------------
 // Called before first update. Do any initial setup here.
@@ -22,6 +14,7 @@ GameState GlobalState = RUNNING;
 void Init()
 {
 	EscapeRoom::SceneSystem::GetInstance()->AddScene<EscapeRoom::SceneLevel0>("scene-0");
+	EscapeRoom::SceneSystem::GetInstance()->AddScene<EscapeRoom::WinScene>("scene-win");
 	EscapeRoom::SceneSystem::GetInstance()->SwitchToScene("scene-0");
 }
 
@@ -35,7 +28,7 @@ void StartEndGame()
 //------------------------------------------------------------------------
 void Update(float deltaTime)
 {
-	if (GlobalState == RUNNING)
+	if (EscapeRoom::SceneSystem::GetInstance()->global_state == EscapeRoom::SceneSystem::RUNNING)
 	{
 		EscapeRoom::SceneSystem::GetInstance()->UpdateScene(deltaTime);
 	}

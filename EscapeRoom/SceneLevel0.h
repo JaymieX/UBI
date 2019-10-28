@@ -9,5 +9,6 @@ namespace EscapeRoom
 	{
 	public:
 		void StartScene() override;
+		void ResumeScene() override;
 	};
 }

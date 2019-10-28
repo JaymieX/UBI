@@ -101,6 +101,8 @@ namespace EscapeRoom
 			}
 		}
 
+		virtual void ResumeScene() {};
+
 		virtual void UpdateScene();
 
 		virtual void RenderScene();
@@ -128,6 +130,14 @@ namespace EscapeRoom
 		
 	public:
 		bool show_debug_info = false;
+
+		enum GameState
+		{
+			RUNNING,
+			QUIT
+		};
+
+		GameState global_state = RUNNING;
 		
 		~SceneSystem()
 		{
@@ -157,10 +167,13 @@ namespace EscapeRoom
 			// Make sure we do not have scene with same name
 			if (!Util::MapContains(available_scenes, name_))
 			{
+				auto scene = std::make_unique<SceneType>(std::forward<Args>(args_)...);
+				scene->StartScene();
+				
 				available_scenes.insert(
 					std::make_pair(
 						name_,
-						std::make_unique<SceneType>(std::forward<Args>(args_)...)
+						std::move(scene)
 					)
 				);
 
@@ -183,7 +196,7 @@ namespace EscapeRoom
 
 				// Switching
 				current_scene = available_scenes.at(name_).get();
-				current_scene->StartScene();
+				current_scene->ResumeScene();
 				current_scene->StartGameObjects();
 
 				return true;
